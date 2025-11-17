@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Search Resulte {% endblock title %}
+ 
+ {% block body %}
+ <div class="container">
+    <h5>Search Resulte For: {{ query }}</h5>
+ </div>
+    <div class="container my-5">
+        <div class="row">
+      {% for blog in results %}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img src="{{ blog.image }}" class="card-img-top" alt="" height="300">
+            <div class="card-body">
+              <h5 class="card-title">{{ blog.title|truncatewords:7 }}             </h5>
+              <p class="card-text">{{ blog.content|truncatewords:50 }}  </p>
+  
+              <!-- Like button and count -->
+             <!-- Like & Comment Section -->
+             <div class="d-flex align-items-center justify-content-between">
+                <!-- Like Button -->
+                <div>
+                  <button class="btn btn-outline-danger btn-sm me-2 like-btn" data-post-id="">
+                    <i class="fa fa-heart"></i> Like
+                  </button>
+                  <span class="like-count">{{ blog.likes}}</span> Likes
+                </div>
+                <!-- Comment Count -->
+                <div>
+                  <i class="fa fa-comment text-primary"></i>
+                  <span class="comment-count">{{ blog.comments.count}}</span> Comments
+                  <!-- <img src="{{ blog.author_img.url }}" alt=""> -->
+                </div>
+  
+              </div>
+  
+  
+              <!-- Read more link -->
+              <a href="{% url 'singlepage' blog.pk %}" class="btn btn-primary mt-2">Read more</a>
+            </div>
+          </div>
+        </div>
+         {% empty %} 
+         <h5>No Result Found For {{ query }}</h5>
+
+        {% endfor %}
+        
+
+        <!--  -->
+        
+    </div>
+    </div>   
+
+ {% endblock body %}
+    
